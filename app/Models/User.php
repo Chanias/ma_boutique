@@ -22,7 +22,7 @@ class User extends Authenticatable
         'prenom',
         'email',
         'password',
-        'role_id',
+      
 
     ];
 
@@ -45,18 +45,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function role()
+    public function roles()
     {
         return $this->belongsTo(Role::class);
     }
 
     public function avis()
     {
-        return $this->hasMany(Avis_clients::class);
+        return $this->hasMany(Avis::class);
     }
 
     public function adresses()
     {
         return $this->hasMany(Adresse::class);
+    }
+
+    public function commandes()
+    {
+        return $this->hasMany(Commande::class);
+    }
+
+    public function favoris()
+    {
+        return $this->belongsToMany(Article::class,'favoris');
     }
 }

@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('avis_clients_models', function (Blueprint $table) {
+        Schema::create('adresses', function (Blueprint $table) {
             $table->id();
-            $table->contenu();
-            $table->note();
+            $table->string('adresse',50);
+            $table->char('code_postal',5);
+            $table->string('ville',30);
             $table->timestamps();
 
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('article_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('avis_clients_models');
+        Schema::dropIfExists('adresses');
     }
 };

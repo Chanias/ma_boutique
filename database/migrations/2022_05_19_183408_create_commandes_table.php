@@ -13,14 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('commande_models', function (Blueprint $table) {
+        Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->numero_commande();
-            $table->prix();
+            $table->integer('numero');
+            $table->float('prix');
             $table->timestamps();
 
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('adresse_id')->constrained();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+           
+            $table->unsignedBigInteger('adresse_id')->nullable();
+            $table->foreign('adresse_id')->references('id')->on('adresses')->onDelete('set null');
+       
         });
     }
 
@@ -31,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('commande_models');
+        Schema::dropIfExists('commandes');
     }
 };

@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('campagne_models', function (Blueprint $table) {
+        Schema::create('campagnes', function (Blueprint $table) {
             $table->id();
-            $table->titre();
-            $table->date_debut();
-            $table->date_fin();
-            $table->montant_promo();
+            $table->string('titre',30);
+            $table->date('date_debut');
+            $table->date('date_fin');
+            $table->integer('reduction')->default(15);
             $table->timestamps();
+
+           
         });
     }
 
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('campagne_models');
+        Schema::dropIfExists('campagnes');
     }
 };

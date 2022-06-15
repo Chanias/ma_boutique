@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CampagneModel extends Model
+class Campagne extends Model
 {
     use HasFactory;
 
@@ -17,6 +17,6 @@ class CampagneModel extends Model
 ];
 
     public function articles(){
-        return $this->belongsToMany(Article::class, 'campagne_articles');
+        return $this->belongsToMany(Article::class, 'campagnes_articles');
     }
 }

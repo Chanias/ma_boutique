@@ -13,18 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('article_models', function (Blueprint $table) {
+        Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->nom();
-            $table->description_courte();
-            $table->description_longue();
-            $table->image();
-            $table->prix();
-            $table->stock();
-            $table->note();
+            $table->string('nom');
+            $table->string('description_courte',80);
+            $table->text('description_longue');
+            $table->string('image');
+            $table->string('prix');
+            $table->integer('stock');
+            $table->float('note');
             $table->timestamps();
 
-            $table->foreignId('gamme_id')->constrained();
+            $table->unsignedBigInteger('gamme_id')->nullable();
+            $table->foreign('gamme_id')->references('id')->on('gammes')->onDelete('cascade');
         });
     }
 
@@ -35,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_models');
+        Schema::dropIfExists('articles');
     }
 };

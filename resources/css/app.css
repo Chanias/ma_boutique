@@ -1,0 +1,13 @@
+/*----------------------------MON CSS-------------------------------------------------*/
+h2{
+    margin-top: 10%;
+}
+h2::after{
+    display: block;
+    height: 2px;
+    background-color: #ce19bf;
+    width: 100px;
+    content: "";
+    margin: 0 auto;
+    margin-top: 10px;
+}

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AdresseModel extends Model
+class Adresse extends Model
 {
     use HasFactory;
 
@@ -19,5 +19,10 @@ class AdresseModel extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function commandes()
+    {
+        return $this->hasMany(Commande::class);
     }
 }

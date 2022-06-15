@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('role_models', function (Blueprint $table) {
+        Schema::create('gammes', function (Blueprint $table) {
             $table->id();
-            $table->role();
+            $table->string('nom',20);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_models');
+        Schema::dropIfExists('gammes');
     }
 };
