@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Campagne;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $currentPromo = Campagne::with(['articles' => function ($query) {
+            $query->limit(3);
+        }])
+            ->whereDate('date_debut', '<=', date('Y-m-d')) //2022-06-17  format de date mysql
+            ->whereDate('date_fin', '>=',  date('Y-m-d'))
+            ->get();
+
+        if (isset($currentPromo[0])) {
+            $currentPromo = $currentPromo[0];
+        } else {
+            $currentPromo = null;
+        }
+        return view('home',[           
+            'currentPromo' => $currentPromo,
+            ]);
     }
 }

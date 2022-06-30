@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             CommandesSeeder::class,
             CommandesArticlesSeeder::class,
             CampagnesSeeder::class,
-            CampagnesArticlesSeeder::class,
+            CampagneArticlesSeeder::class,
 
         ]);
         // \App\Models\User::factory(10)->create();

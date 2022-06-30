@@ -20,7 +20,14 @@ class UserSeeder extends Seeder
             'prenom'=>'John',
             'email'=>'john@hdqdjqk',
             'password'=>'Azerty89!',
-
+            'role_id'=>1
+        ]);
+        User::create([
+            'nom'=>'Siedlecki',
+            'prenom'=>'Floriane',
+            'email'=>'florianesiedlecki@gmail.com',
+            'password'=>'Diablo18!',
+            'role_id'=>2
         ]);
     }
 }

@@ -23,11 +23,15 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //-----------------------------USER-------------------------------
-Route::resource('/compte', App\Http\Controllers\UserController::class);
+Route::get('compte', [App\Http\Controllers\UserController::class, 'compte'])->name('compte');
+Route::put('compte/update',  [App\Http\Controllers\UserController::class, 'update'])->name('compte.update');
+Route::put('compte/updatePassword',  [App\Http\Controllers\UserController::class, 'updatePassword'])->name('compte.updatePassword');
+Route::delete('user/destroy', [App\Http\Controllers\UserController::class, 'destroy'] )->name('user.destroy');
 //-----------------------------COMMANDE-------------------------------
 Route::resource('/commande', App\Http\Controllers\CommandeController::class);
 //-----------------------------ARTICLE-------------------------------
 Route::resource('/article', App\Http\Controllers\ArticleController::class);
+
 //-----------------------------CAMPAGNE-------------------------------
 Route::resource('/campagne', App\Http\Controllers\CampagneController::class);
 //-----------------------------ADRESSE-------------------------------

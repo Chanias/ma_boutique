@@ -33,18 +33,22 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                            <a class="nav-link active" aria-current="page" href="/home">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/compte">Mon compte</a>
+                            <a class="nav-link" href="">Catalogue</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Gammes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.index') }}">ADMINISTRATEUR</a>
+                            <a class="nav-link" href="">Promotions</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Panier</a>
                         </li>
                         
-                        
-
-                        {{-- <form class="d-flex" action="{{ route('search') }}" method="GET" >
+                         {{-- <form class="d-flex" action="{{ route('search') }}" method="GET" >
                         @csrf
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                             <button class="btn btn-outline-success" type="submit">Search</button>
@@ -57,6 +61,7 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
+
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -71,6 +76,14 @@
                                 </li>
                             @endif
                         @else
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('compte')}}">Mon compte</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.index') }}">ADMINISTRATEUR</a>
+                        </li>
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->nom }}
@@ -93,7 +106,24 @@
                 </div>
             </div>
         </nav>
+        
+        <div class="container w-50 text-center p-3">
 
+            @if (session()->has('message'))
+                <p class="alert alert-success">{{ session()->get('message') }}</p>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+        </div>
         <main class="py-4">
             @yield('content')
         </main>

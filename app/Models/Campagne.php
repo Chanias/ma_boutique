@@ -11,12 +11,12 @@ class Campagne extends Model
 
     protected $fillable = [
     'titre',
-    'montant_promo', 
+    'reduction', 
     'date_debut', 
     'date_fin'
 ];
 
     public function articles(){
-        return $this->belongsToMany(Article::class, 'campagnes_articles');
+        return $this->belongsToMany(Article::class, 'campagne_articles');
     }
 }

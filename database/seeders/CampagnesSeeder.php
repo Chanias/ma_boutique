@@ -22,7 +22,7 @@ class CampagnesSeeder extends Seeder
             'date_fin'=>'2022-04-20'
         ]);
         Campagne::create([
-            'titre'=>'Solde Promo de Eté',
+            'titre'=>'Solde Promo d\'Été',
             'reduction'=>'50',
             'date_debut'=>'2022-06-21',
             'date_fin'=>'2022-09-01'

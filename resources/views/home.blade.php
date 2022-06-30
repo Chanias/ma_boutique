@@ -1,23 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+    @if ($currentPromo)
+        <div class="container text-center">
+            <h1 class="currentPromoTitle">{{ $currentPromo->titre }}</h1>
+            <h2 class="text-primary">-{{ $currentPromo->reduction }}% sur les articles liés</h2>
+            <h3>du {{ date('d/m', strtotime($currentPromo->date_debut)) }} au
+                {{ date('d/m/y', strtotime($currentPromo->date_fin)) }}</h3>
+        </div>
+        <hr>
+        <div class="col-md-8 offset-2 text-center">
+            <div class="row mb-5">
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                @foreach ($currentPromo->articles as $article)
+                    <div class="card text-center" style="width: 18rem;">
+                        <h3 class="card-title ">{{ $article->nom }}</h3>
+                        
+                        <div class="card-body">
+                            <img class="card-img" src="{{ asset("images/$article->image") }}" alt="article">
+                            <p class="card-text">{{ $article->description_courte }}</p>
+                            <p class="card-text text-danger font-weight-bold">-{{ $currentPromo->reduction }}%</p>
+                            <h3 class="card-text font-weight-light"><del>{{ $article['prix'] }} €</del></h3>
+                            {{-- <h3 class="card-text font-weight-light"><del>{{ $article->prix/50}} €</del></h3> --}}
                         </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
+                    </div>
+                @endforeach
             </div>
         </div>
-    </div>
-</div>
+        
+    @endif
 @endsection

@@ -13,7 +13,8 @@ class Article extends Model
         'nom', 
         'description_courte', 
         'description_longue', 
-        'image', 'prix', 
+        'image',
+        'prix', 
         'stock', 
         'note', 
         'gamme_id'];
