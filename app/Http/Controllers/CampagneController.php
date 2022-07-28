@@ -17,7 +17,10 @@ class CampagneController extends Controller
      */
     public function index()
     {
-        //
+        $campagnes = Campagne::whereDate('date_fin', '>=',  date('Y-m-d'))->orderBy('date_debut', 'asc')->get();
+        
+
+        return view('campagnes/index', ['campagnes' => $campagnes,]);
     }
 
     /**

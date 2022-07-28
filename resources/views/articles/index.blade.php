@@ -1,48 +1,51 @@
 @extends('layouts.app')
 
 @section('title')
-    Catalogue - Laravel Online Store
+    Catalogue
 @endsection
 
 @section('content')
-
     <h2 class='pb-5 text-center'>Catalogue</h3>
 
-        <div class="container">
+        <div class="container" id="catalogue">
             <div class="row">
 
                 @foreach ($articles as $article)
                     <div class="card text-center col-md-4 col-lg-3 p-3 m-3\" style="width: 18rem;">
-                        <img class="card-img-top" src="{{ asset("images/$article->image") }}" alt="article">
+                        <img class="card-img-top" src="{{ asset("images/$article->image") }}"
+                            alt="article">
                         <div class="card-body">
                             <h5 class="card-title font-weight-bold">{{ $article->nom }}</h5>
-                            <p class="card-text font-italic">{{ $article->description }}</p>
+                            <p class="card-text font-italic">{{ $article->description_courte }}</p>
 
-                            @if (in_array($article->id, $campagnesArticlesIds))
-
-                                @php $campagne = GetCampaign($article->id) @endphp
-
-                                @if ($campagne)
-
-                                    <p class="card-text text-danger font-weight-bold">{{ $campagne->nom }} :
-                                        -{{ $campagne->reduction }}%</p>
-                                    <h5 class="card-text font-weight-light"><del>{{ $article->prix }} €</del>
-                                        <span class="text-danger font-weight-bold">
-                                            @php
-                                                $newPrice = $article->prix - $article->prix * ($campagne->reduction / 100);
-                                                echo number_format($newPrice, 2);
-                                            @endphp
-                                            €</span>
-                                    </h5>
-
-                                @else
-                                    <h5 class="card-text font-weight-light">{{ $article->prix }} €</h5>
-                                @endif
-
+                            @if (isset($article->campagnes[0]))
+                            <h3 class="card-text text-danger font-weight-bold">{{ $article->campagnes[0]->titre }}</h3>
+                                <p class="card-text text-danger font-weight-bold">{{ $article->campagnes[0]->reduction }}%</p>
+                                <h3 class="card-text font-weight-light"><del>{{ $article['prix'] }} €</del></h3>
+                                <h3 class="card-text text-danger font-weight-bold">
+                                    {{ intval($article['prix']) * (1 - intval($article->campagnes[0]->reduction) / 100) }} €</del>
+                                </h3>
                             @else
-                                <h5 class="card-text font-weight-light">{{ $article->prix }} €</h5>
-                            @endif
+                                <p class="card-text font-italic">{{ $article->prix }}€</p>
 
-                            <a href="{{ route('articles.show', $article) }}">
-                                <button class="btn btn-info m-2">Détails produit</button>
-                            </a>
+                                @endif
+                                <a href="{{ route('article.show', $article) }}">
+                                    <input type="submit" class="btn btn-primary" value="Détails de l'article">
+                                </a>
+                           
+                            <div class="row">
+                                <input type="number" id="typeNumber" class="form-control mx-auto mt-2" name="quantite"
+                                    value="1">
+                            </div>
+                            <div class="row">
+                                <button class="btn btn-warning" name="ajouter_article" type="submit">+ Ajouter au
+                                    panier</button>
+
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+        </div>
+    @endsection

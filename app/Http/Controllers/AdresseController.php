@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Adresse;
 
 class AdresseController extends Controller
 {
@@ -21,9 +22,15 @@ class AdresseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $request->validate([
+            'adresse' => 'required|min:3|max:50',
+            'code_postal' => 'required|min:5|max:5',
+            'ville' => 'required|min:3|max:50',
+        ]);
+        Adresse::create($request->all());
+        return redirect()->back()->with('message', 'Adresse enregistrée !');
     }
 
     /**
@@ -66,9 +73,21 @@ class AdresseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Adresse $adresse)
     {
-        //
+        $request->validate([
+            'adresse' => 'required|min:3|max:50',
+            'code_postal' => 'required|min:3|max:50',
+            'ville' => 'required|min:3|max:50',
+        ]);
+
+        $adresse->update([
+            'adresse' => $request->input('adresse'),
+            'code_postal' => $request->input('code_postal'),
+            'ville' => $request->input('ville'),
+        ]);
+
+        return redirect()->back()->with('message', 'L\'adresse a bien été modifiée');
     }
 
     /**
@@ -77,8 +96,9 @@ class AdresseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($adresse)
     {
-        //
+        $adresse->delete();
+        return redirect()->back()->with('message', 'L\'adresse a bien été supprimée');
     }
 }

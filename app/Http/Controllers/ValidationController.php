@@ -3,19 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Commande;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
-
-class CommandeController extends Controller
+class ValidationController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
-        
+        $user =  Auth::user();
+         // Montrer la page de validation du panier
+         return view('validation.index', compact('user'));
     }
 
     /**
@@ -36,7 +38,7 @@ class CommandeController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**
@@ -45,12 +47,9 @@ class CommandeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Commande $commande)
+    public function show($id)
     {
-       
-       $commande->load('articles');
-      
-        return view('commandes.show', ['commande' => $commande]);
+        //
     }
 
     /**

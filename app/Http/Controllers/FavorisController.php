@@ -13,7 +13,10 @@ class FavorisController extends Controller
      */
     public function index()
     {
-        //
+        // $user =  Auth::user(); // charger les favoris dans l'index
+        // return view('favoris/index', [
+        //     'user' => $user
+        // ]);
     }
 
     /**
@@ -34,7 +37,10 @@ class FavorisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $articleId = $request->input('articleId'); // on doit récupérer les id des articles : + simple pour code comme pour le panier
+        // $user =  Auth::user();
+        // $user->favoris()->attach($articleId); // attach = insert into ... On insert dans la table Favoris les id des articles 
+        // return redirect()->back()->with('message', 'L\'article a été ajouté aux favoris ');
     }
 
     /**
@@ -77,8 +83,9 @@ class FavorisController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        // $favoris->delete();
+        // return redirect()->route('admin.index')->with('message', 'La campagne a bien été supprimé...');
     }
 }

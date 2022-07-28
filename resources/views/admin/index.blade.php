@@ -216,20 +216,20 @@
                             <td>{{ $gamme->nom }}</td>
                             {{-- <td><img class="w-25" src="{{ asset("images/$article->image") }}"></td> --}}
 
-                            <!--LIEN POUR ALLER SUR LA VIEW MODIFIER L'ARTICLE-->
+                            <!--LIEN POUR ALLER SUR LA VIEW MODIFIER LA GAMME-->
                             <form method="put" action="{{ route('gamme.edit', $gamme) }}">
                                 <td>
-                                    <input type="submit" class="btn btn-success" value="Modifier gamme">
+                                    <input type="submit" class="btn btn-success" value="Modifier la gamme">
                                 </td>
                             </form>
 
-                            <!--SUPPRIMER L'ARTICLE-->
+                            <!--SUPPRIMER LA GAMME-->
                             <form method="POST" action="{{ route('gamme.destroy', $gamme) }}">
                                 <!-- CSRF token -->
                                 @csrf
                                 @method('DELETE')
                                 <td>
-                                    <input type="submit" class="btn btn-danger" value="Supprimer gamme">
+                                    <input type="submit" class="btn btn-danger" value="Supprimer la gamme">
                                 </td>
                             </form>
                         </tr>
@@ -323,20 +323,20 @@
                             <td>{{ $campagne->date_fin }}</td>
                             <td>{{ $campagne->reduction }}%</td>
 
-                            <!--LIEN POUR ALLER SUR LA VIEW MODIFIER L'ARTICLE-->
+                            <!--LIEN POUR ALLER SUR LA VIEW MODIFIER LA CAMPAGNE-->
                             <form method="put" action="{{ route('campagne.edit', $campagne) }}">
                                 <td>
-                                    <input type="submit" class="btn btn-success" value="Modifier campagne">
+                                    <input type="submit" class="btn btn-success" value="Modifier la campagne">
                                 </td>
                             </form>
 
-                            <!--SUPPRIMER L'ARTICLE-->
+                            <!--SUPPRIMER LA CAMPAGNE-->
                             <form method="POST" action="{{ route('campagne.destroy', $gamme) }}">
                                 <!-- CSRF token -->
                                 @csrf
                                 @method('DELETE')
                                 <td>
-                                    <input type="submit" class="btn btn-danger" value="Supprimer campagne">
+                                    <input type="submit" class="btn btn-danger" value="Supprimer la campagne">
                                 </td>
                             </form>
                         </tr>

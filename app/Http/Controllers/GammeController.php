@@ -14,7 +14,10 @@ class GammeController extends Controller
      */
     public function index()
     {
-        //
+        $gammes = Gamme::with('articles')->get();
+        return view('gammes/index', [
+            'gammes' => $gammes,
+        ]);
     }
 
     /**

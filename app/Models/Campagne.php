@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Campagne extends Model
 {
     use HasFactory;
+    
 
     protected $fillable = [
     'titre',
@@ -18,5 +19,6 @@ class Campagne extends Model
 
     public function articles(){
         return $this->belongsToMany(Article::class, 'campagne_articles');
+        
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\Campagne;
 
@@ -36,8 +37,25 @@ class HomeController extends Controller
         } else {
             $currentPromo = null;
         }
+
+        // On récupère les 3 articles les mieux notés : notes la plus haute
+        $topArticles=Article::orderBy('note','desc')->with(['campagnes'=>function($query){ // avec un desc pour que ça soit l'inverse : la note la + haute en 1ere
+           $query
+            ->whereDate('date_debut', '<=', date('Y-m-d')) //2022-06-17  format de date mysql
+            ->whereDate('date_fin', '>=',  date('Y-m-d'))
+            ->get();
+
+        }])->limit(3)->get();
+        
         return view('home',[           
             'currentPromo' => $currentPromo,
+            'topArticles' => $topArticles,
+
             ]);
+           
+    }
+    public function a_propos()
+    {
+        return view('a_propos');
     }
 }

@@ -16,6 +16,8 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -24,7 +26,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                   Boutique de vêtements Laravel
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -36,23 +38,26 @@
                             <a class="nav-link active" aria-current="page" href="/home">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Catalogue</a>
+                            <a class="nav-link" href="/article">Catalogue</a>
                         </li> 
                         <li class="nav-item">
-                            <a class="nav-link" href="">Gammes</a>
+                            <a class="nav-link" href="/gamme">Gammes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Promotions</a>
+                            <a class="nav-link" href="/campagne">Promotions</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Panier</a>
+                            <a class="nav-link" href="/panier">Panier</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Favoris</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/a_propos">A propos</a>
+                        </li>
+                       
                         
-                         {{-- <form class="d-flex" action="{{ route('search') }}" method="GET" >
-                        @csrf
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form> --}}
+                        
                     </ul>
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
@@ -128,5 +133,8 @@
             @yield('content')
         </main>
     </div>
+    <footer>
+        
+    </footer>
 </body>
 </html>

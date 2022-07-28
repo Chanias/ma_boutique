@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    MOFIFICATION DES gammes
+    MOFIFICATION DES GAMMES
 @endsection
 
 @section('content')

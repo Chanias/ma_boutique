@@ -17,12 +17,16 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $articles = Article::all();
-
+    { //On récupère les articles qui ont une campagne en cours
+        $articles = Article::with(['campagnes' => function ($query) {
+            $query->whereDate('date_debut', '<=', date('Y-m-d'))
+                ->whereDate('date_fin', '>=',  date('Y-m-d'))
+                ->get();
+            
+        }])->get();
+        $articles= Article::orderBy('nom','asc')->get();
         return view('articles/index', [
             'articles' => $articles,
-           
         ]);
     }
 
@@ -71,9 +75,10 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Article $article)
     {
-        //
+
+        return view('articles/show', compact('article'));
     }
 
     /**
@@ -129,6 +134,6 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
-        return redirect()->route('admin.index')->with('message', 'L article a bien été supprimé...');
+        return redirect()->route('admin.index')->with('message', 'L\'article a bien été supprimé...');
     }
 }

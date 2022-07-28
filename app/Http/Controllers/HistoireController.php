@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Commande;
 
-
-class CommandeController extends Controller
+class HistoireController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +13,7 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        
+        return view('a_propos')
     }
 
     /**
@@ -36,7 +34,7 @@ class CommandeController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**
@@ -45,12 +43,9 @@ class CommandeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Commande $commande)
+    public function show($id)
     {
-       
-       $commande->load('articles');
-      
-        return view('commandes.show', ['commande' => $commande]);
+        //
     }
 
     /**

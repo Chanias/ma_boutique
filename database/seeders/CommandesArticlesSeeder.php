@@ -37,13 +37,13 @@ class CommandesArticlesSeeder extends Seeder
         DB::table('commandes_articles')->insert([
             'commande_id' => '2',
             'article_id' => '1',
-            'quantite'=>1,
+            'quantite'=>3,
             'reduction'=>20
         ]);
         DB::table('commandes_articles')->insert([
             'commande_id' => '2',
             'article_id' => '2',
-            'quantite'=>1,
+            'quantite'=>4,
             'reduction'=>20
         ]);
         DB::table('commandes_articles')->insert([

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('description_courte',80);
             $table->text('description_longue');
             $table->string('image');
-            $table->string('prix');
+            $table->float('prix');
             $table->integer('stock');
             $table->float('note');
             $table->timestamps();

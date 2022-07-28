@@ -22,23 +22,43 @@ Auth::routes();
 //-----------------------------ACCUEIL-------------------------------
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 //-----------------------------USER-------------------------------
 Route::get('compte', [App\Http\Controllers\UserController::class, 'compte'])->name('compte');
 Route::put('compte/update',  [App\Http\Controllers\UserController::class, 'update'])->name('compte.update');
 Route::put('compte/updatePassword',  [App\Http\Controllers\UserController::class, 'updatePassword'])->name('compte.updatePassword');
 Route::delete('user/destroy', [App\Http\Controllers\UserController::class, 'destroy'] )->name('user.destroy');
-//-----------------------------COMMANDE-------------------------------
-Route::resource('/commande', App\Http\Controllers\CommandeController::class);
-//-----------------------------ARTICLE-------------------------------
-Route::resource('/article', App\Http\Controllers\ArticleController::class);
 
-//-----------------------------CAMPAGNE-------------------------------
-Route::resource('/campagne', App\Http\Controllers\CampagneController::class);
-//-----------------------------ADRESSE-------------------------------
-Route::resource('/adresse', App\Http\Controllers\AdresseController::class);
-//-----------------------------FAVORIS-------------------------------
-Route::resource('/favoris', App\Http\Controllers\FavorisController::class);
-//-----------------------------GAMMES-------------------------------
-Route::resource('/gamme', App\Http\Controllers\GammeController::class);
 //-----------------------------ADMIN-------------------------------
 Route::get('admin/index',[App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
+
+//-----------------------------COMMANDES-------------------------------
+Route::resource('/commande', App\Http\Controllers\CommandeController::class);
+
+//-----------------------------ARTICLES-------------------------------
+Route::resource('/article', App\Http\Controllers\ArticleController::class);
+
+//-----------------------------CAMPAGNES-------------------------------
+Route::resource('/campagne', App\Http\Controllers\CampagneController::class);
+
+//-----------------------------ADRESSE-------------------------------
+Route::resource('/adresse', App\Http\Controllers\AdresseController::class);
+
+//-----------------------------FAVORIS-------------------------------
+Route::resource('/favoris', App\Http\Controllers\FavorisController::class);
+
+//-----------------------------GAMMES-------------------------------
+Route::resource('/gamme', App\Http\Controllers\GammeController::class);
+
+//-----------------------------PANIER-------------------------------
+Route::get('panier', [App\Http\Controllers\PanierController::class, 'show'])->name('panier.show');
+Route::post('panier/ajouter/{article}', [App\Http\Controllers\PanierController::class, 'add'])->name('panier.add');
+Route::post('panier/modifierQuantite/{id}', [App\Http\Controllers\PanierController::class, 'modifierQuantite'])->name('panier.modifierQuantite');
+Route::get('panier/retirer/{id}', [App\Http\Controllers\PanierController::class, 'remove'])->name('panier.remove');
+Route::get('panier/vider', [App\Http\Controllers\PanierController::class, 'empty'])->name('panier.empty');
+
+//-----------------------------VALIDATION PANIER-------------------------------
+Route::resource('validation', App\Http\Controllers\ValidationController::class);
+
+//-----------------------------HISTOIRE-------------------------------
+Route::get('a_propos', [App\Http\Controllers\HomeController::class, 'a_propos'])->name('a_propos');

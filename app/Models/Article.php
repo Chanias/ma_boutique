@@ -10,29 +10,39 @@ class Article extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nom', 
-        'description_courte', 
-        'description_longue', 
+        'nom',
+        'description_courte',
+        'description_longue',
         'image',
-        'prix', 
-        'stock', 
-        'note', 
-        'gamme_id'];
+        'prix',
+        'stock',
+        'note',
+        'gamme_id'
+    ];
 
-    public function commandes(){
-        return $this->belongsToMany(Commande::class, 'commande_articles')->withPivot(['quantite','reduction']);
+    protected $with = [ // dès que je récupère un article je récupère automatiquement les campagnes
+        'campagnes'
+    ];
+
+    public function commandes()
+    {
+        return $this->belongsToMany(Commande::class, 'commandes_articles')->withPivot(['quantite', 'reduction']);
     }
 
-    public function campagnes(){
-        return $this->belongsToMany(Campagne::class, 'campagnes_articles');
+    public function campagnes()
+    {
+        return $this->belongsToMany(Campagne::class, 'campagne_articles');
     }
-    public function avis(){
+    public function avis()
+    {
         return $this->hasMany(Avis::class);
     }
-    public function gamme(){
+    public function gamme()
+    {
         return $this->belongsTo(Gamme::class);
     }
-    public function users(){
+    public function users()
+    {
         return $this->belongsToMany(User::class, 'favoris');
     }
 }
