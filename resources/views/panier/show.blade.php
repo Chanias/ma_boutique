@@ -22,18 +22,25 @@
                      </thead>
                      <tbody class="text-center">
                          <!-- On parcourt les articles du panier en session : session('panier') -->
+                         @php $prixTotal=0 @endphp
                          @foreach (session()->get('panier') as $article)
                              <tr>
                                  <td>{{ $article->nom }} <a href="{{ route('article.show', $article) }}">
+                                         <!-- Nom du produit -->
                                          <input type="submit" class="btn btn-primary" value="Détails de l'article">
                                      </a></td>
-                                 {{-- @if ($article->campagne)
-                                 <td>{{$article->campagne->titre}}:{{$article->campagne->reduction}}%</td>
-                                 <td><del>{{ $article['prix'] }} €</del>  {{ intval($article['prix']) * (1 - intval($article->campagnes->reduction) / 100) }}
-                                    €</td>
-                                 @else --}}
+
+
+                                 @if ($article->campagne)
+                                     <td>{{ $article->campagne->titre }}: -{{ $article->campagne->reduction }}%
+                                         <del>{{ $article['prix'] }} €</del>
+                                         {{ number_format(floatval($article['prix']) * (1 - intval($article->campagne->reduction) / 100), 2, ',', ' ') }}
+                                         €
+                                     </td>
+                                 @else
                                      <td>{{ $article->prix }} €</td>
-                                
+                                 @endif
+
                                  <td>
                                      <!-- Le Lien pour le changement de quantité de l'article -->
                                      <form method="post" action="{{ route('panier.modifierQuantite', $article->id) }}">
@@ -45,9 +52,18 @@
                                      </form>
 
                                  </td>
+                                 @if ($article->campagne)
+                                     <!-- Prix total de la ligne -->
+                                     <td>{{ number_format($totalLigne = floatval($article['prix']) * (1 - intval($article->campagne->reduction) / 100) * intval($article['quantite']), 2, ',', ' ') }}€
+                                     </td>
+                                 @else
+                                     <td>{{ number_format($totalLigne = floatval($article['prix']) * intval($article['quantite']), 2, ',', ' ') }}
+                                     </td>
+                                 @endif
 
-                                 <td>{{ intval($article['prix']) * intval($article['quantite']) }}€</td>
+                                 @php $prixTotal+=$totalLigne @endphp
                                  <td>
+
                                      <!-- Le Lien pour retirer un produit du panier -->
                                      <a class="btn btn-danger" href="{{ route('panier.remove', $article->id) }}"
                                          title="Retirer la ligne de l'article">Supprimer l'article</a>

@@ -29,14 +29,29 @@
                                 <td>{{ $article->nom }} <a href="{{ route('article.show', $article) }}">
                                         <input type="submit" class="btn btn-primary" value="Détails de l'article">
                                     </a></td>
-                                <td>{{ $article->prix }} €</td>
+
+                                @if ($article->campagne)
+                                    <td>{{ $article->campagne->titre }}: -{{ $article->campagne->reduction }}%
+                                        <br><del>{{ $article['prix'] }} €</del>
+                                        {{ number_format(floatval($article['prix']) * (1 - intval($article->campagne->reduction) / 100), 2, ',', ' ') }}
+                                        €
+                                    </td>
+                                @else
+                                    <td>{{ $article->prix }} €</td>
+                                @endif
 
                                 <td>{{ $article['quantite'] }}</td>
                                 @php $article['prix']=str_replace(',','.',$article['prix']) @endphp
                                 {{-- On écrase le string du prix en remplpacement la , par 1 . --}}
-                                <td> @php echo $lineTotal = floatval($article['prix']) * intval($article['quantite']) @endphp </td>
-                       @php $prixTotal += $lineTotal @endphp
-                                @endforeach
+                                @if ($article->campagne) <!-- Prix total de la ligne -->
+                                     <td>{{number_format($totalLigne = floatval($article['prix']) * (1 - intval($article->campagne->reduction) / 100) * intval($article['quantite']), 2, ',', ' ') }}€
+                                     </td>
+                                 @else
+                                     <td>{{number_format($totalLigne = floatval($article['prix']) * intval($article['quantite']), 2, ',', ' ') }}</td>
+                                 @endif
+
+                                @php $prixTotal+=$totalLigne @endphp
+                        @endforeach
                         </tr>
                     </tbody>
 
@@ -44,8 +59,8 @@
 
                     <td></td>
                     <td></td>
-                    <td> @php echo number_format($prixTotal, 2, ',', ' ')
-                    @endphp</td>
+                    <td> @php echo number_format($prixTotal, 2, ',', ' '); @endphp €</td>
+                    
                 </table>
 
             </div>
@@ -86,74 +101,93 @@
             </div>
         </div>
         <!----------------------------------------MODIFIER MON ADRESSE-------------------------------------------------------->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-2 text-center">
+                    <h4 class="text-center p-4">Modifier mon adresse</h4>
+                    <form class="col-12 mx-auto p-5 border " action="{{ route('adresse.update', $user->adresse) }}"
+                        method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-group">
+                            <label for="adresse">Adresse</label>
+                            <input type="adresse" class="form-control" name="adresse" value="{{ $user->adresse->adresse }}"
+                                id="adresse">
+                        </div>
 
-        <div class="row">
-            <div class="col-md-8 offset-2 text-center">
-                <h4 class="text-center p-4">Modifier mon adresse</h4>
-                <form class="col-12 mx-auto p-5 border " action="{{ route('adresse.update', $user->adresse) }}"
-                    method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="form-group">
-                        <label for="adresse">Adresse</label>
-                        <input type="adresse" class="form-control" name="adresse" value="{{ $user->adresse->adresse }}"
-                            id="adresse">
-                    </div>
+                        <div class="form-group">
+                            <label for="code_postal">Code postal</label>
+                            <input type="text" class="form-control" name="code_postal"
+                                value="{{ $user->adresse->code_postal }}" id="code_postal">
+                        </div>
 
-                    <div class="form-group">
-                        <label for="code_postal">Code postal</label>
-                        <input type="text" class="form-control" name="code_postal"
-                            value="{{ $user->adresse->code_postal }}" id="code_postal">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="ville">Ville</label>
-                        <input type="text" class="form-control" name="ville" value="{{ $user->adresse->ville }}"
-                            id="ville">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Modifier</button>
-                </form>
+                        <div class="form-group">
+                            <label for="ville">Ville</label>
+                            <input type="text" class="form-control" name="ville" value="{{ $user->adresse->ville }}"
+                                id="ville">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                    </form>
+                </div>
             </div>
         </div>
+
 
         <!----------------------------------------TYPE DE LIVRAISON-------------------------------------------------------->
-        <div class="container text-center">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>Type de livraison</h3>
+        <div class="container">
+            <form method="post" action="{{ route('validation.choixLivraison') }}">
+                @csrf
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <h3>Type de livraison</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="livraison" id="classique" value="classique"
+                                @if (session()->has('livraison') && session()->get('livraison') == 'classique') checked @endif>
+                            <label class="form-check-label" for="classique">
+                                Classique (à domicile - en 48H) : 5€
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="livraison" id="express" value="express"
+                                @if (session()->has('livraison') && session()->get('livraison') == 'express') checked @endif>
+                            <label class="form-check-label" for="express">
+                                Express (à domicile - en 24H) : 9,90€
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="livraison" id="relais" value="relais"
+                                @if (session()->has('livraison') && session()->get('livraison') == 'relais') checked @endif>
+                            <label class="form-check-label" for="relais">
+                                En point-relais (48H) : 4€
+                            </label>
+                        </div>
+                    </div>
+                    <input type="hidden" name="prixTotal" value="{{ $prixTotal }}">
+
+                    <button type="submit" class="btn btn-primary" id="validation">Valider</button>
                 </div>
-            </div>
-            <div class="row">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-                    <label class="form-check-label" for="exampleRadios1">
-                        Classique (à domicile - en 48H) : 5€
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                    <label class="form-check-label" for="exampleRadios2">
-                        Express (à domicile - en 24H) : 9,90€
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                    <label class="form-check-label" for="exampleRadios3">
-                        En point-relais (48H) : 4€
-                    </label>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Valider</button>
+            </form>
         </div>
+
         <div class="container">
             <div class="row text-center">
-
-
-                <p>Choississez un mode de livraison pour connaître le total !</p>
+                @if (session()->has('livraison'))
+                <p>Prix total de la commande après frais de port: @php echo session()->get('prixTotal') @endphp €.</p>
+                    <a href="{{ route('commande.store') }}">
+                        @csrf
+                        <button class="btn btn-success">Validation de la commande</button> </a>                       
+                @else
+                    <p>Choississez un mode de livraison pour connaître le total !</p>
+                @endif
             </div>
         </div>
+
     @endsection

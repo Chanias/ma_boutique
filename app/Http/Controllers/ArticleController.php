@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
-use App\Models\Campagne;
 use App\Models\Gamme;
-use Illuminate\Support\Facades\DB;
-use Auth;
+
 
 class ArticleController extends Controller
 {
@@ -28,16 +26,6 @@ class ArticleController extends Controller
         return view('articles/index', [
             'articles' => $articles,
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**

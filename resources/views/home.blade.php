@@ -5,7 +5,7 @@
         <div class="container text-center">
             <h1 class="currentPromoTitle">{{ $currentPromo->titre }}</h1>
             <h2 class="text-primary">-{{ $currentPromo->reduction }}% sur les articles liés</h2>
-            <h3>du {{ date('d/m', strtotime($currentPromo->date_debut)) }} au
+            <h3>du {{ date('d/m/y', strtotime($currentPromo->date_debut)) }} au
                 {{ date('d/m/y', strtotime($currentPromo->date_fin)) }}</h3>
         </div>
         <hr>
@@ -90,21 +90,26 @@
                                         €
                                     </h3>
                                 @else
-                                    <p class="card-text font-italic">{{ $article->prix }}€</p>
+                                    <p class="card-text font-italic">{{ number_format($article->prix, 2, ',', ' ') }}€
+                                    </p>
                                 @endif
                                 <a href="{{ route('article.show', $article) }}">
                                     <input type="submit" class="btn btn-primary" value="Détails de l'article">
                                 </a>
 
-                                <div class="row">
-                                    <input type="number" id="typeNumber" class="form-control mx-auto mt-2" name="quantite"
-                                        value="1">
-                                </div>
-                                <div class="row">
-                                    <button class="btn btn-warning" name="ajouter_article" type="submit">+ Ajouter au
-                                        panier</button>
+                                <form method="post" action="{{ route('panier.add', $article) }}"
+                                    class="form-inline d-inline-block">
+                                    @csrf
+                                    <div class="row">
+                                        <input type="number" id="quantite" class="form-control mx-auto mt-2"
+                                            name="quantite" value="1">
+                                    </div>
+                                    <div class="row">
+                                        <button class="btn btn-warning" name="ajouter_article" type="submit">+ Ajouter au
+                                            panier</button>
+                                    </div>
 
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>

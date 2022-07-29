@@ -7,3 +7,27 @@ hr{
     position: relative;
     left: 25%;
 }
+.form-check{
+    position: relative;
+    left: 40%;
+}
+#validation{
+    position: relative;
+    left: 45%;
+}
+#nav{
+  background-color: blueviolet;
+ 
+}
+#nav a{
+  color: aliceblue;
+}
+#footer{
+  text-align: center;
+  background-color: blueviolet;
+  color: aliceblue;
+  font-weight: 15%;
+}
+#catalogue{
+  left: 10%;
+}

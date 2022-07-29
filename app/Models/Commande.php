@@ -9,13 +9,21 @@ class Commande extends Model
 {
     use HasFactory;
 
-    public function user() {
+    protected $fillable = [
+        'numero',
+        'prix',
+        'user_id',
+        'adresse_id'
+    ];
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function articles(){
+    public function articles()
+    {
         return $this->belongsToMany(Article::class, 'commandes_articles')->withPivot('quantite', 'reduction');
     }
 
-    
 }

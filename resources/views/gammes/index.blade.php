@@ -42,19 +42,21 @@
                                             <a href="{{ route('article.show', $article) }}">
                                                 <button class="btn btn-info m-2">Détails produit</button>
                                             </a>
+                                           
+                                          
+                                            <form method="post" action="{{ route('panier.add', $article) }}"
+                                            class="form-inline d-inline-block">
+                                            @csrf
                                             <div class="row">
-                                                <input type="number" id="typeNumber" class="form-control mx-auto mt-2" name="quantite"
+                                                <input type="number" id="quantite" class="form-control mx-auto mt-2" name="quantite"
                                                     value="1">
                                             </div>
-                                          
-                                             <form method="post" action="{{ route('panier.add',$article) }}" class="form-inline d-inline-block"> 
-                                                @csrf
-                                            <div class="row"> 
+                                            <div class="row">
                                                 <button class="btn btn-warning" name="ajouter_article" type="submit">+ Ajouter au
                                                     panier</button>
                                             </div>
-                                        
-                                        </form>  
+            
+                                        </form>
     
                                         </div>   
                                     </div>

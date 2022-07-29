@@ -16,8 +16,8 @@ class ValidationController extends Controller
     public function index(User $user)
     {
         $user =  Auth::user();
-         // Montrer la page de validation du panier
-         return view('validation.index', compact('user'));
+        // Montrer la page de validation du panier
+        return view('validation.index', compact('user'));
     }
 
     /**
@@ -38,7 +38,6 @@ class ValidationController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
@@ -84,5 +83,24 @@ class ValidationController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function choixLivraison(Request $request)
+    {
+
+        $prixTotal = $request->input('prixTotal');
+
+        $livraison = $request->input('livraison');
+
+        session()->put('livraison', $livraison); // pour stocker le choix de livraison dans la session
+
+        if ($livraison == 'classique') {
+            $prixTotal += 5;
+        } elseif ($livraison == 'express') {
+            $prixTotal += 9.90;
+        } else {
+            $prixTotal += 4;
+        }
+        session()->put('prixTotal',$prixTotal);
+        return back()->withMessage("Livraison validée par le site");
     }
 }

@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             'prenom'=>'Floriane',
             'email'=>'florianesiedlecki@gmail.com',
             'password'=>Hash::make('Diablo18!!'),
-            'role_id'=>1
+            'role_id'=>2
         ]);
      
     }

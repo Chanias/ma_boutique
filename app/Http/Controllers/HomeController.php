@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Adresse;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\Campagne;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -15,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -25,6 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (Auth::user() && !session()->has('adresse')){
+            session()->put('adresse', Adresse::where('user_id', Auth::user()->id)->first());
+        }
+
         $currentPromo = Campagne::with(['articles' => function ($query) {
             $query->limit(3);
         }])

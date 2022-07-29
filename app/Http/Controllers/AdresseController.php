@@ -24,13 +24,7 @@ class AdresseController extends Controller
      */
     public function create(Request $request)
     {
-        $request->validate([
-            'adresse' => 'required|min:3|max:50',
-            'code_postal' => 'required|min:5|max:5',
-            'ville' => 'required|min:3|max:50',
-        ]);
-        Adresse::create($request->all());
-        return redirect()->back()->with('message', 'Adresse enregistrée !');
+       
     }
 
     /**
@@ -41,7 +35,13 @@ class AdresseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'adresse' => 'required|min:3|max:50',
+            'code_postal' => 'required|min:5|max:5',
+            'ville' => 'required|min:3|max:50',
+        ]);
+        Adresse::create($request->all());
+        return redirect()->back()->with('message', 'Adresse enregistrée !');
     }
 
     /**
