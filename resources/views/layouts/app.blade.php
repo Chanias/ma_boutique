@@ -26,9 +26,11 @@
 </head>
 
 <body>
+   
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid" id="nav">
+                <img style="width : 100px;" src="{{ asset('images/logo.jpg') }}" alt="logo">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Boutique de vêtements Laravel
                 </a>
@@ -118,13 +120,19 @@
                 </div>
             </div>
         </nav>
+        <div class="container-fluid text-center p-4" id="header">
+            <h1>La boutique magique de Laravel</h1>
+            <img src="{{ asset('images/header.jpg') }}" alt="logo">
+            
+        </div>
+        
+        
 
+        {{-- Les messages d'erreurs --}}
         <div class="container w-50 text-center p-3">
-
             @if (session()->has('message'))
                 <p class="alert alert-success">{{ session()->get('message') }}</p>
             @endif
-
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -134,14 +142,16 @@
                     </ul>
                 </div>
             @endif
-
         </div>
+
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+    
     <footer>
         <div class="container-fluid" id="footer">
+            <img style="width : 100px;" src="{{ asset('images/logo.jpg') }}" alt="logo">
             <div class="copyright">
                 <p>Boutique de vêtements Laravel - 2022. Fait par Floriane Siedlecki</p>
             </div>

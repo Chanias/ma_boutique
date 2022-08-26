@@ -20,14 +20,14 @@
                             @csrf
                             @method('PUT')
 
-                            <input type="hidden" name="nom" value="{{ $user->nom }}" id="email">
+                            <input type="hidden" name="nom" value="{{ $user->nom }}" id="nom">
                             <div class="form-group">
                                 <label for="nom">Nom</label>
                                 <input type="nom" class="form-control" name="nom" value="{{ $user->nom }}"
                                     id="nom">
                             </div>
 
-                            <input type="hidden" name="prenom" value="{{ $user->prenom }}" id="email">
+                            <input type="hidden" name="prenom" value="{{ $user->prenom }}" id="prenom">
                             <div class="form-group">
                                 <label for="prenom">Prénom</label>
                                 <input type="prenom" class="form-control" name="prenom" value="{{ $user->prenom }}"
@@ -107,19 +107,19 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group">
-                    <label for="adresse">adresse</label>
+                    <label for="adresse">Adresse</label>
                     <input type="adresse" class="form-control" name="adresse" value="{{ $user->adresse->adresse }}"
                         id="adresse">
                 </div>
 
                 <div class="form-group">
-                    <label for="code_postal">code_postal</label>
+                    <label for="code_postal">Code postal</label>
                     <input type="text" class="form-control" name="code_postal" value="{{ $user->adresse->code_postal }}"
                         id="code_postal">
                 </div>
 
                 <div class="form-group">
-                    <label for="ville">ville</label>
+                    <label for="ville">Ville</label>
                     <input type="text" class="form-control" name="ville" value="{{ $user->adresse->ville }}"
                         id="ville">
                 </div>
@@ -128,7 +128,7 @@
         </div>
     </div>
 
-  
+
 
 
 
@@ -154,8 +154,8 @@
                             <td>{{ $commande->prix }} €</td>
                             <td>{{ $commande->created_at }}</td>
                             <td><a href="{{ route('commande.show', $commande) }}">
-                                <input type="submit" class="btn btn-warning" value="Détails">
-                            </a></td>
+                                    <input type="submit" class="btn btn-warning" value="Détails">
+                                </a></td>
                         </tr>
                 </tbody>
                 @endforeach
@@ -166,13 +166,10 @@
     <div class="container" id="supprimerCompte">
         <div class="row">
             <div class="col-12 text-center">
-                <h4>supprimer mon compte</h4>
-            </div>
-            <div class="col-12 text-center">
                 <form class="section" action="{{ route('user.destroy') }}" method="post">
                     @csrf
                     @method('DELETE')
-                    <input type="submit" class="btn btn-danger" value="supprimer">
+                    <input type="submit" class="btn btn-danger" value="Supprimer mon compte">
                 </form>
             </div>
         </div>

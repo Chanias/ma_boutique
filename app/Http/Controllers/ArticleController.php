@@ -97,7 +97,7 @@ class ArticleController extends Controller
             'nom' => 'required|min:5|max:50',
             'description_courte' => 'nullable|min:10|max:50',
             'description_longue' => 'nullable|min:10|max:150',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'prix' => 'required|min:1|max:100',
             'stock' => 'required|min:1|max:500',
             'note' => 'required|min:1|max:5',

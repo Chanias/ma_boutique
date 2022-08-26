@@ -21,5 +21,12 @@ class AdresseSeeder extends Seeder
             'code_postal'=>'79410',
             'ville'=>'Saint maxire'
         ]);
+        
+        Adresse::create([
+            'user_id'=>2,
+            'adresse'=>'test',
+            'code_postal'=>'79410',
+            'ville'=>'test'
+        ]);
     }
 }

@@ -72,6 +72,11 @@
 
                          </tr>
                      </tbody>
+                     <td>Total du panier : </td>
+
+                    <td></td>
+                    <td></td>
+                    <td> @php echo number_format($prixTotal, 2, ',', ' '); @endphp €</td>
                  </table>
 
              </div>

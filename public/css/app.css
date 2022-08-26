@@ -23,14 +23,32 @@ hr{
 #nav a{
   color: aliceblue;
 }
-#footer{
+/* #footer{
   text-align: center;
   background-color: blueviolet;
   color: aliceblue;
   font-weight: 15%;
-}
+
+} */
 #catalogue{
   left: 10%;
+}
+#header img{
+  width: 100%;
+  background-size: cover;
+  height: 30vh;
+}
+h1{
+  position: relative;
+  top: 69%;
+}
+footer{
+  margin: 10px;
+  text-align: center;
+  background-color: blueviolet;
+  color: aliceblue;
+  padding-top: 70px;
+  font-weight: 15%;
 }
 @charset "UTF-8";
 /*!

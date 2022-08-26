@@ -26,9 +26,7 @@
                         @php $prixTotal=0 @endphp
                         @foreach (session()->get('panier') as $article)
                             <tr>
-                                <td>{{ $article->nom }} <a href="{{ route('article.show', $article) }}">
-                                        <input type="submit" class="btn btn-primary" value="Détails de l'article">
-                                    </a></td>
+                                <td>{{ $article->nom }} </td>
 
                                 @if ($article->campagne)
                                     <td>{{ $article->campagne->titre }}: -{{ $article->campagne->reduction }}%

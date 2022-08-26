@@ -33,23 +33,24 @@ Route::delete('user/destroy', [App\Http\Controllers\UserController::class, 'dest
 Route::get('admin/index', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.index');
 
 //-----------------------------COMMANDES-------------------------------
-Route::get('/commande', [App\Http\Controllers\CommandeController::class, 'store'])->name('commande.store');
-Route::get('/commande', [App\Http\Controllers\CommandeController::class, 'show'])->name('commande.show');
+Route::get('/commande/store', [App\Http\Controllers\CommandeController::class, 'store'])->name('commande.store');
+Route::get('/commande/show', [App\Http\Controllers\CommandeController::class, 'show'])->name('commande.show');
 
 //-----------------------------ARTICLES-------------------------------
 Route::resource('/article', App\Http\Controllers\ArticleController::class);
 
 //-----------------------------CAMPAGNES-------------------------------
-Route::resource('/campagne', App\Http\Controllers\CampagneController::class);
+Route::resource('/campagne', App\Http\Controllers\CampagneController::class)->except(['show','create']);
 
 //-----------------------------ADRESSE-------------------------------
-Route::resource('/adresse', App\Http\Controllers\AdresseController::class);
+Route::resource('/adresse', App\Http\Controllers\AdresseController::class)->only([
+    'store', 'update','destroy']);
 
 //-----------------------------FAVORIS-------------------------------
 Route::resource('/favoris', App\Http\Controllers\FavorisController::class);
 
 //-----------------------------GAMMES-------------------------------
-Route::resource('/gamme', App\Http\Controllers\GammeController::class);
+Route::resource('/gamme', App\Http\Controllers\GammeController::class)->except(['show','create']);;
 
 //-----------------------------PANIER-------------------------------
 Route::get('panier', [App\Http\Controllers\PanierController::class, 'show'])->name('panier.show');
@@ -59,7 +60,7 @@ Route::get('panier/retirer/{id}', [App\Http\Controllers\PanierController::class,
 Route::get('panier/vider', [App\Http\Controllers\PanierController::class, 'empty'])->name('panier.empty');
 
 //-----------------------------VALIDATION PANIER-------------------------------
-Route::resource('validation', App\Http\Controllers\ValidationController::class);
+Route::resource('validation', App\Http\Controllers\ValidationController::class)->only(['index','destroy']);
 Route::post('validation/livraison', [App\Http\Controllers\ValidationController::class, 'choixLivraison'])->name('validation.choixLivraison');
 //-----------------------------HISTOIRE-------------------------------
 Route::get('a_propos', [App\Http\Controllers\HomeController::class, 'a_propos'])->name('a_propos');
